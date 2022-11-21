@@ -1,0 +1,30 @@
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  /* flex-direction: column; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* font-size: calc(10px + 2vmin); */
+  color: white;
+}
+
+.global-layout {
+  min-width: 100%;
+}
+
+.auth-page {
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+}
+
+
+
+.App-link {
+  color: #61dafb;
+}
+
+
