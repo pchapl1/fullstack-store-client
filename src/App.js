@@ -5,6 +5,7 @@ import './App.css';
 import GlobalLayout from './Layout/GlobalLayout';
 import LoginPage from './Pages/LoginPage';
 import RegistrationPage from './Pages/RegistrationPage';
+import ProductPage from './Pages/ProductPage';
 
 
 function App() {
@@ -17,10 +18,11 @@ function App() {
       path : '/',
       element : <GlobalLayout />,
       children : [
-        // {
-        //   index : true,
-        //   element : <HomePage />
-        // },
+        {
+          path : '/',
+          index : true,
+          element : <ProductPage />
+        },
         {
           path : 'login',
           index : true, 

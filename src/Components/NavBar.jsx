@@ -20,6 +20,7 @@ const NavBar = (props) => {
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/registration">Register</Nav.Link>
                         <Nav.Link href="/login">Login</Nav.Link>
+                        <Nav.Link href="/cart">Cart</Nav.Link>
 
                     </Nav>
                     </Navbar.Collapse>

@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-
 import { useAuth } from "../Hooks/auth";
 import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/esm/Container";
@@ -48,8 +47,8 @@ const RegistrationPage = (props) => {
 
     const register = async ()=> {
 
-        // const registerResult = await auth.register(email, password, firstName, lastName, phoneNumber);
-        const registerResult = await auth.register(email, password);
+        const registerResult = await auth.register(email, password, firstName, lastName, phoneNumber);
+        // const registerResult = await auth.register(email, password);
 
         if (registerResult.success){
             navigate('/login')
@@ -71,12 +70,12 @@ const RegistrationPage = (props) => {
                     <Form.Control onChange={handleEmail} type="text" name="email" placeholder="Enter Email" />
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" onChange={handlePassword} name="password" placeholder="Enter Password" />
-                    {/* <Form.Label>First Name</Form.Label>
+                    <Form.Label>First Name</Form.Label>
                     <Form.Control onChange={handleFirstName} type="text" name="firstName" placeholder="Enter First Name" />
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control type="text" onChange={handleLastName} name="lastName" placeholder="Enter Last Name" />
                     <Form.Label>Phone Number</Form.Label>
-                    <Form.Control type="number" onChange={handlePhoneNumber} name="phoneNumber" placeholder="Enter Phone Number" /> */}
+                    <Form.Control type="number" onChange={handlePhoneNumber} name="phoneNumber" placeholder="Enter Phone Number" />
                 </Form.Group>
                 <Button onClick={register} variant="primary">
                     Sign Up
