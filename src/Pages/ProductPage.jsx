@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-
+import ProductCard from "../Components/ProductCard";
 
 
 const urlEndpoint = process.env.REACT_APP_URL_ENDPOINT;
@@ -14,16 +14,23 @@ const ProductPage = (props) => {
 
         const response = await fetch(url)
 
-        const products = await response.json()
+        const productsResult = await response.json()
+
+        const products = productsResult.products
 
         console.log(products)
 
+        
+
     }
-    fetchProducts()
+    const products = fetchProducts()
 
     return (
         <div className="product-page">
             <h2>Product Page</h2>
+            {products.map((product, index)=> {
+                <ProductCard key={index} product={product} />
+            })}
         </div>
     )
 }
