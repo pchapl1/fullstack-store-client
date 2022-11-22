@@ -21,7 +21,7 @@ function App() {
         {
           path : '/',
           index : true,
-          element : <ProductPage />
+          element : <ProductPage urlEndpoint={urlEndpoint}/>
         },
         {
           path : 'login',
