@@ -18,10 +18,16 @@ const NavBar = (props) => {
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="/">Home</Nav.Link>
+                        { auth.userToken === null &&
+                        <>                        
                         <Nav.Link href="/registration">Register</Nav.Link>
                         <Nav.Link href="/login">Login</Nav.Link>
-                        <Nav.Link href="/cart">Cart</Nav.Link>
-
+                        </>
+                        }
+                    </Nav>
+                    <Nav className="ml-auto">
+                        <Nav.Link className="">Welcome, {auth.userEmail}!</Nav.Link>
+                        <Nav.Link className="" href="/cart">Cart</Nav.Link>
                     </Nav>
                     </Navbar.Collapse>
                 </Container>

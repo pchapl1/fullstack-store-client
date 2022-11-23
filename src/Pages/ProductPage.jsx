@@ -29,10 +29,13 @@ const ProductPage = (props) => {
 
     return (
         <div className="product-page">
-            <h2>Product Page</h2>
+            <h2 className="text-center">Product Page</h2>
+            <div className="product-container">
             {products.map((product, index)=> {
                 return <ProductCard key={index} product={product}/>
             })}
+            </div>
+
         </div>
     )
 }

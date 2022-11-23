@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
   const [isAuthLoading, setIsAuthLoading] = useState(false);
 
   useEffect(() => {
-    console.log('in use effect in auth')
     const userData = getLSUserData();
 		if (userData && userData.token) {
 			setUserToken(userData.token);
@@ -48,10 +47,10 @@ export const AuthProvider = ({ children }) => {
   // call this function when you want to authenticate the user
   const login = async (email, password) => {
     setIsAuthLoading(true);
-
     const loginResult = await loginUser(email, password);
-
+    console.log(loginResult)
     if (loginResult.success) {
+      console.log('in success')
       setLSUserData(loginResult.token, loginResult.email);
     }
     setIsAuthLoading(false);

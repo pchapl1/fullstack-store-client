@@ -27,6 +27,39 @@
   color: #61dafb;
 }
 
+.product-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .product-card {
   color: black;
+  margin: 2rem;
 }
+
+.card-subtitle {
+  margin-bottom: 1.3rem;
+  margin-top: .4rem;
+}
+
+.ratings {
+  font-size: 12px;
+}
+
+.price-and-rating {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card-footer {
+  display: flex;
+}
+
