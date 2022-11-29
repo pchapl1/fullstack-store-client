@@ -10,13 +10,16 @@ import ProductPage from './Pages/ProductPage';
 
 function App() {
 
+
+
   const urlEndpoint = process.env.REACT_APP_URL_ENDPOINT
+
 
 
   const router = createBrowserRouter([
     {
       path : '/',
-      element : <GlobalLayout />,
+      element : <GlobalLayout urlEndpoint={urlEndpoint}/>,
       children : [
         {
           path : '/',

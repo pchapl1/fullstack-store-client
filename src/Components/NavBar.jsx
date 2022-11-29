@@ -1,13 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useAuth } from "../Hooks/auth";
+import { useState } from "react";
 
 
 const NavBar = (props) => {
 
     const auth = useAuth()
+
+    const { urlEndpoint } = props
+
+    const url = `${urlEndpoint}/user/get-cart/${auth.userEmail}`;
+
+    const getUserCart = async ()=> {
+    
+        const response = await fetch(url)
+        
+        console.log(response)
+        const userCart = await response.json()
+
+
+
+        setCartLength(userCart.user.cart.length)
+    }
+
+    const [cartLength, setCartLength] = useState(0)
+
+    useEffect(()=>{
+        if (auth.userToken !== null) {
+            getUserCart()
+
+            }
+
+
+
+    }, [])
+
+
 
     return (
         <div className="nav-bar">
@@ -27,7 +58,7 @@ const NavBar = (props) => {
                     </Nav>
                     <Nav className="ml-auto">
                         <Nav.Link className="">Welcome, {auth.userEmail}!</Nav.Link>
-                        <Nav.Link className="" href="/cart">Cart</Nav.Link>
+                        <Nav.Link className="" href="/cart">Cart: {cartLength}</Nav.Link>
                     </Nav>
                     </Navbar.Collapse>
                 </Container>

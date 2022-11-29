@@ -12,6 +12,10 @@ const ProductCard = (props) => {
 
     const { title, rating, price, image, id, description, category} = product
 
+    const [ addToCart, setAddToCart] = useState([])
+
+    
+
     return (
         <div className="product-card">
             <Card style={{ width: '18rem' }}>
