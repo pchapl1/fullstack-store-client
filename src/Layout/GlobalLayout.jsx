@@ -6,14 +6,14 @@ import { useEffect, useState } from "react";
 
 const GlobalLayout = (props) => {
 
-    const {urlEndpoint, user } = props
+    const {urlEndpoint, user, cartLength } = props
 
     const auth = useAuth()
     
 
     return (
         <div className="global-layout">
-            <NavBar urlEndpoint={urlEndpoint} user={user} />
+            <NavBar urlEndpoint={urlEndpoint} user={user} cartLength={cartLength} />
             <Outlet />
         </div>
     )

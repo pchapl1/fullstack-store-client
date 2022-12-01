@@ -2,67 +2,48 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useAuth } from "../Hooks/auth";
 import Table from 'react-bootstrap/Table';
-import Badge from 'react-bootstrap/Badge';
-import ListGroup from 'react-bootstrap/ListGroup';
-
+import Button from 'react-bootstrap/Button';
 
 
 const CartPage = (props)=> {
 
     const auth = useAuth()
 
-    const { urlEndpoint, user } = props
+    const { urlEndpoint, user, removeFromCart, shouldRefetch, setShouldRefetch } = props
 
-    const [shouldRefetch, setShouldRefetch] = useState(false)
+    // const [shouldRefetch, setShouldRefetch] = useState(false)
 
     const [cart, setCart] = useState([])
 
-    const [email, setEmail] = useState("")
 
 
-    // console.log(cart)
-
-    // const handleRemoveFromCart = async ()=> {
-    //     const response = await fetch(`${urlEndpoint}/todos/create-one`, {
-    //         method: 'PUT',
-    //         body: JSON.stringify({
-
-    //         }),
-    //         headers: {
-	// 			'Content-Type': 'application/json'
-	// 		}
-    //     })
-
-    // }
-
-    // const url = `${urlEndpoint}/user/cart-page/${auth.userEmail}`;
 
 
+    const handleRemoveProduct = (e, index)=> {
+        removeFromCart(index)
+    }
 
 
     useEffect(()=>{
+        if (auth.userEmail.length > 0) {
+            const fetchUserCart = async ()=> {
+
+                const result = await fetch(`${urlEndpoint}/user/cart-page/${auth.userEmail}`)
             
-            setShouldRefetch(true)
-
-            if (auth.userEmail.length > 0) {
-                const fetchUserCart = async ()=> {
-
-                    const result = await fetch(`${urlEndpoint}/user/cart-page/${auth.userEmail}`)
-                
-                    const userCartLoad = await result.json()
-        
-                    setCart(userCartLoad.user.cart)
-                
-                }
-                
-                fetchUserCart()
+                const userCartLoad = await result.json()
+    
+                setCart(userCartLoad.user.cart)
+            
             }
-            setShouldRefetch(false)
+            
+            fetchUserCart()
+        }
+
 
     
-      }, [auth])
+      }, [auth, shouldRefetch])
 
-      console.log(cart)
+
 
     return (
 
@@ -80,8 +61,13 @@ const CartPage = (props)=> {
                             <p className="cart-description">{product.description}</p>
                             <p>category: {product.category}</p>
                         </td>
-                        <td><p>${product.price}</p></td>
-                        <td><p></p></td>
+                        <td>
+                            <p>${product.price}</p>
+
+                            <Button onClick={e=>handleRemoveProduct(e,index)} value={product.id} >Remove from Cart</Button>
+                            {/* <Button></Button> */}
+                        </td>
+
                     </tr>
                 
                 })}

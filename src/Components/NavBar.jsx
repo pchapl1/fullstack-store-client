@@ -13,9 +13,9 @@ const NavBar = (props) => {
 
     const navigate = useNavigate()
 
-    const { urlEndpoint, user } = props
+    const { urlEndpoint, user, cartLength } = props
 
-    console.log(user.cart)
+    // console.log(`cart Length: ${cartLength}`)
 
     const url = `${urlEndpoint}/user/get-cart/${auth.userEmail}`;
 
@@ -30,22 +30,22 @@ const NavBar = (props) => {
         }
     }
 
-    const [cartLength, setCartLength] = useState('')
+    // const [cartLength, setCartLength] = useState('')
 
     // const [shouldRefetch, setShouldRefetch] = useState(false)
 
 
-    useEffect(()=>{
+    // useEffect(()=>{
 
-        const getCartLength = ()=> {
-            setCartLength(user.cart.length)
-        }
+    //     const getCartLength = ()=> {
+    //         setCartLength(user.cart.length)
+    //     }
 
-        if (user.cart) {
-            getCartLength()
-        }
+    //     if (user.cart) {
+    //         getCartLength()
+    //     }
 
-    }, [user.cart])
+    // }, [user.cart])
 
     return (
         <div className="nav-bar">

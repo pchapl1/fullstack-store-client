@@ -8,6 +8,8 @@ import RegistrationPage from './Pages/RegistrationPage';
 import ProductPage from './Pages/ProductPage';
 import CartPage from './Pages/CartPage';
 import { useAuth } from '../src/Hooks/auth';
+import { useContext } from 'react';
+import GlobalState from './Context/GlobalState';
 
 
 function App() {
@@ -18,7 +20,15 @@ function App() {
 
   const [shouldRefetch, setShouldRefetch] = useState(false)
 
+  const [cartLength, setCartLength] = useState('')
+
+  // const [productToRemove, setProductToRemove] = useState('')
+
   const auth = useAuth()
+
+  const getCartLength = ()=> {
+    setCartLength(user.cart.length)
+  }
 
   useEffect(()=>{
     const getUser = async ()=> {
@@ -37,22 +47,65 @@ function App() {
   
   },[auth])
 
+  useEffect(()=>{
 
-  const addToCart = ()=> {
-    console.log('in app.js addToCart')
+    if (user.cart) {
+      getCartLength(user.cart.length)
+    }
+  }, [user.cart])
 
+
+  const addToCart = async (product)=> {
+
+    const response = await fetch(`${urlEndpoint}/user/add-to-cart/${user.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+          product
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    const resCartLength = await response.json()
+
+    // update the cart length
+    setCartLength(resCartLength.userCart.length)
+
+  }
+
+
+  const removeFromCart = async (productIndex)=>{
+    console.log('removing product from cart')
+    setShouldRefetch(true)
+
+    const response = await fetch(`${urlEndpoint}/user/remove-from-cart/${user.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+          productIndex
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const removeResponse = await response.json()
+
+    console.log(removeResponse)
+    setCartLength(removeResponse.userCart)
+
+    setShouldRefetch(false)
   }
 
 
   const router = createBrowserRouter([
     {
       path : '/',
-      element : <GlobalLayout auth={auth} urlEndpoint={urlEndpoint} user={user}/>,
+      element : <GlobalLayout auth={auth} urlEndpoint={urlEndpoint} user={user} cartLength={cartLength} />,
       children : [
         {
           path : '/',
           index : true,
-          element : <ProductPage urlEndpoint={urlEndpoint} user={user} />
+          element : <ProductPage urlEndpoint={urlEndpoint} user={user} addToCart={addToCart} />
         },
         {
           path : 'login',
@@ -74,7 +127,7 @@ function App() {
           path : 'cart',
 
           index : true,
-          element : <CartPage auth={auth} urlEndpoint={urlEndpoint} user={user}  />
+          element : <CartPage auth={auth} urlEndpoint={urlEndpoint} user={user} removeFromCart={removeFromCart} shouldRefetch={shouldRefetch} setShouldRefetch={setShouldRefetch} />
         }
       ]
     }
@@ -83,7 +136,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <RouterProvider router={router} />
+
+          <RouterProvider router={router} />
+
 
       </header>
     </div>
