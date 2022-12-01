@@ -7,7 +7,7 @@ import ProductCard from '../Components/ProductCard';
 const ProductPage = (props) => {
 
     const [products, setProducts] = useState([])
-    const {urlEndpoint} = props
+    const {urlEndpoint, user } = props
 
     useEffect(()=>{
         const fetchProducts = async ()=> {
@@ -32,7 +32,7 @@ const ProductPage = (props) => {
             <h2 className="text-center">Product Page</h2>
             <div className="product-container">
             {products.map((product, index)=> {
-                return <ProductCard key={index} product={product}/>
+                return <ProductCard key={index} product={product} user={user} urlEndpoint={urlEndpoint} />
             })}
             </div>
 

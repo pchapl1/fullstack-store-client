@@ -63,3 +63,35 @@
   display: flex;
 }
 
+.cart-row-1 {
+  max-width:100px;
+}
+.cart-page p {
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.cart-row {
+  margin: 100px;
+}
+
+.cart-description {
+  font-size: 12px;
+  margin-bottom: 5rem;
+  max-width: 400px;
+}
+
+.list-group {
+  border: 2px solid white;
+}
+
+.list-group-item {
+  border: 2px solid white;
+  color: white;
+}
+
+img {
+  max-width: 150px;
+  max-height: fit-content;
+}

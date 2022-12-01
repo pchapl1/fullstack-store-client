@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { useNavigate } from "react-router-dom"
 import { useAuth } from "../Hooks/auth";
 import { useState } from "react";
 
@@ -10,35 +11,41 @@ const NavBar = (props) => {
 
     const auth = useAuth()
 
-    const { urlEndpoint } = props
+    const navigate = useNavigate()
+
+    const { urlEndpoint, user } = props
+
+    console.log(user.cart)
 
     const url = `${urlEndpoint}/user/get-cart/${auth.userEmail}`;
 
-    const getUserCart = async ()=> {
-    
-        const response = await fetch(url)
-        
-        console.log(response)
-        const userCart = await response.json()
 
+    const logout = async ()=> {
 
+        const logoutResult = await auth.logout()
 
-        setCartLength(userCart.user.cart.length)
+        if (logoutResult.success === true) {
+            console.log(logoutResult.success)
+            navigate('/')
+        }
     }
 
-    const [cartLength, setCartLength] = useState(0)
+    const [cartLength, setCartLength] = useState('')
+
+    // const [shouldRefetch, setShouldRefetch] = useState(false)
+
 
     useEffect(()=>{
-        if (auth.userToken !== null) {
-            getUserCart()
 
-            }
+        const getCartLength = ()=> {
+            setCartLength(user.cart.length)
+        }
 
+        if (user.cart) {
+            getCartLength()
+        }
 
-
-    }, [])
-
-
+    }, [user.cart])
 
     return (
         <div className="nav-bar">
@@ -57,8 +64,12 @@ const NavBar = (props) => {
                         }
                     </Nav>
                     <Nav className="ml-auto">
-                        <Nav.Link className="">Welcome, {auth.userEmail}!</Nav.Link>
-                        <Nav.Link className="" href="/cart">Cart: {cartLength}</Nav.Link>
+                        {
+                            auth.userToken !== null &&
+                            <Nav.Link className="">Welcome, {auth.userEmail}!</Nav.Link>
+                        }
+                        <Nav.Link className="" href="/cart">Cart: {cartLength} </Nav.Link>
+                        <Nav.Link className="" onClick={logout}>Logout </Nav.Link>
                     </Nav>
                     </Navbar.Collapse>
                 </Container>

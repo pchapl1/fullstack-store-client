@@ -8,11 +8,28 @@ import QtyPicker from "./QtyPicker";
 
 const ProductCard = (props) => {
 
-    const { product } = props
-
+    
+    const { product, user, urlEndpoint } = props
+    
     const { title, rating, price, image, id, description, category} = product
+    
+    // const [ productToAdd, setProductToAdd] = useState('')
+    
+    const handleAddToCart = async ()=> {
+        console.log('in product card add to cart')
+        
+        console.log(product)
 
-    const [ addToCart, setAddToCart] = useState([])
+        const response = await fetch(`${urlEndpoint}/user/add-to-cart/${user.id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                product
+            }),
+            headers: {
+				'Content-Type': 'application/json'
+			}
+        })
+    }
 
     
 
@@ -29,7 +46,7 @@ const ProductCard = (props) => {
                     <p>Rating: {rating.rate} <span className="ratings text-muted">{rating.count} ratings</span></p>
                 </div>
                 
-            <Button className="btn btn-sm btn-dark">Add to Cart</Button>
+            <Button onClick={handleAddToCart} className="btn btn-sm btn-dark">Add to Cart</Button>
             </Card.Body>
             <Card.Footer>
             </Card.Footer>
