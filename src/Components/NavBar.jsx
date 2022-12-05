@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../Hooks/auth";
 import { useState } from "react";
@@ -69,7 +70,15 @@ const NavBar = (props) => {
                             <Nav.Link className="">Welcome, {auth.userEmail}!</Nav.Link>
                         }
                         <Nav.Link className="" href="/cart">Cart: {cartLength} </Nav.Link>
-                        <Nav.Link className="" onClick={logout}>Logout </Nav.Link>
+                        <NavDropdown align="end" title="" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="#">Profile</NavDropdown.Item>
+                            <NavDropdown.Item href="#">Order History</NavDropdown.Item>
+                            <NavDropdown.Item href="#">Wishlist</NavDropdown.Item>
+                            {/* <NavDropdown.Divider /> */}
+                            {/* <NavDropdown.Item href="#"> */}
+                            <Nav.Link className="mx-2" onClick={logout}>Logout </Nav.Link>
+                            {/* </NavDropdown.Item> */}
+                            </NavDropdown>
                     </Nav>
                     </Navbar.Collapse>
                 </Container>
