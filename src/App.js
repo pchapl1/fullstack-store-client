@@ -7,6 +7,9 @@ import LoginPage from './Pages/LoginPage';
 import RegistrationPage from './Pages/RegistrationPage';
 import ProductPage from './Pages/ProductPage';
 import CartPage from './Pages/CartPage';
+import ProfilePage from './Pages/ProfilePage';
+import OrderPage from './Pages/OrderPage';
+import WishlistPage from './Pages/WishlistPage';
 import { useAuth } from '../src/Hooks/auth';
 import { useContext } from 'react';
 import GlobalState from './Context/GlobalState';
@@ -125,10 +128,25 @@ function App() {
         },
         {
           path : 'cart',
-
           index : true,
           element : <CartPage auth={auth} urlEndpoint={urlEndpoint} user={user} removeFromCart={removeFromCart} shouldRefetch={shouldRefetch} setShouldRefetch={setShouldRefetch} />
-        }
+        },
+        {
+          path : 'profile',
+          index : true,
+          element : <ProfilePage auth={auth} urlEndpoint={urlEndpoint} user={user} shouldRefetch={shouldRefetch} setShouldRefetch={setShouldRefetch} />
+        },
+        {
+          path : 'orders',
+          index : true,
+          element : <OrderPage auth={auth} urlEndpoint={urlEndpoint} user={user} shouldRefetch={shouldRefetch} setShouldRefetch={setShouldRefetch} />
+        },
+        {
+          path : 'wishlist',
+          index : true,
+          element : <WishlistPage auth={auth} urlEndpoint={urlEndpoint} user={user} shouldRefetch={shouldRefetch} setShouldRefetch={setShouldRefetch} />
+        },
+
       ]
     }
   ])

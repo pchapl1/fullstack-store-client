@@ -71,9 +71,9 @@ const NavBar = (props) => {
                         }
                         <Nav.Link className="" href="/cart">Cart: {cartLength} </Nav.Link>
                         <NavDropdown align="end" title="" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#">Profile</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Order History</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Wishlist</NavDropdown.Item>
+                            <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                            <NavDropdown.Item href="/orders">Order History</NavDropdown.Item>
+                            <NavDropdown.Item href="/wishlist">My Wishlist</NavDropdown.Item>
                             {/* <NavDropdown.Divider /> */}
                             {/* <NavDropdown.Item href="#"> */}
                             <Nav.Link className="mx-2" onClick={logout}>Logout </Nav.Link>
