@@ -11,8 +11,7 @@ import ProfilePage from './Pages/ProfilePage';
 import OrderPage from './Pages/OrderPage';
 import WishlistPage from './Pages/WishlistPage';
 import { useAuth } from '../src/Hooks/auth';
-import { useContext } from 'react';
-import GlobalState from './Context/GlobalState';
+
 
 
 function App() {
@@ -25,7 +24,8 @@ function App() {
 
   const [cartLength, setCartLength] = useState('')
 
-  // const [productToRemove, setProductToRemove] = useState('')
+  const [orders, setOrders] = useState([])
+
 
   const auth = useAuth()
 
@@ -51,15 +51,15 @@ function App() {
   },[auth])
 
   useEffect(()=>{
-
     if (user.cart) {
       getCartLength(user.cart.length)
     }
-  }, [user.cart])
+  }, [user])
+
+
 
 
   const addToCart = async (product)=> {
-
     const response = await fetch(`${urlEndpoint}/user/add-to-cart/${user.id}`, {
       method: 'PUT',
       body: JSON.stringify({
@@ -71,10 +71,13 @@ function App() {
     })
 
     const resCartLength = await response.json()
+    
+    setShouldRefetch(true)
 
     // update the cart length
-    setCartLength(resCartLength.userCart.length)
+    setCartLength(resCartLength.userCart)
 
+    setShouldRefetch(false)
   }
 
 
@@ -115,11 +118,7 @@ function App() {
           index : true, 
           element : <LoginPage />
         }, 
-        // {
-        //   path : 'logout',
-        //   index : true, 
-        //   element : <LogoutPage />
-        // }, 
+
         {
           path : 'registration',
 
@@ -139,7 +138,7 @@ function App() {
         {
           path : 'orders',
           index : true,
-          element : <OrderPage auth={auth} urlEndpoint={urlEndpoint} user={user} shouldRefetch={shouldRefetch} setShouldRefetch={setShouldRefetch} />
+          element : <OrderPage orders={orders} auth={auth} urlEndpoint={urlEndpoint} user={user} shouldRefetch={shouldRefetch} setShouldRefetch={setShouldRefetch} />
         },
         {
           path : 'wishlist',

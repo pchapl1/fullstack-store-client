@@ -35,6 +35,7 @@ const RegistrationPage = (props) => {
 
     const handleFirstName = (e) => {
         setFirstName(e.target.value)
+        console.log(firstName)
     }
 
     const handleLastName = (e) => {

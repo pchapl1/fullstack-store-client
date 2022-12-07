@@ -1,6 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import ProductCard from '../Components/ProductCard';
+import SearchBar from "../Components/SearchBar";
+import Container from 'react-bootstrap/Container';
+import CategoriesBar from "../Components/CategoriesBar";
+
 
 
 
@@ -8,6 +12,7 @@ const ProductPage = (props) => {
 
 
     const [products, setProducts] = useState([])
+
     const {urlEndpoint, user, addToCart } = props
 
     useEffect(()=>{
@@ -28,14 +33,22 @@ const ProductPage = (props) => {
     }, [])
 
 
+
     return (
         <div className="product-page">
-            <h2 className="text-center">Product Page</h2>
+            <CategoriesBar />
+            <Container>
+            <div className="top-section d-flex justify-content-between">
+                <h2 className="text-center">Products</h2>
+                <SearchBar urlEndpoint={urlEndpoint} />
+            </div> 
             <div className="product-container">
             {products.map((product, index)=> {
                 return <ProductCard key={index} product={product} addToCart={addToCart} user={user} urlEndpoint={urlEndpoint} />
             })}
             </div>
+
+            </Container>
 
         </div>
     )

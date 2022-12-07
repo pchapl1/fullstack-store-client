@@ -16,7 +16,7 @@ const NavBar = (props) => {
 
     const { urlEndpoint, user, cartLength } = props
 
-    // console.log(`cart Length: ${cartLength}`)
+    const [ cart, setCart] = useState(cartLength)
 
     const url = `${urlEndpoint}/user/get-cart/${auth.userEmail}`;
 
@@ -31,22 +31,14 @@ const NavBar = (props) => {
         }
     }
 
-    // const [cartLength, setCartLength] = useState('')
+    const handleAddToCart = ()=> {
+        setCart(cart + 1)
+    }
 
-    // const [shouldRefetch, setShouldRefetch] = useState(false)
+    useEffect(()=> {
+        setCart(cartLength)
+    }, [cart, cartLength])
 
-
-    // useEffect(()=>{
-
-    //     const getCartLength = ()=> {
-    //         setCartLength(user.cart.length)
-    //     }
-
-    //     if (user.cart) {
-    //         getCartLength()
-    //     }
-
-    // }, [user.cart])
 
     return (
         <div className="nav-bar">
@@ -69,16 +61,13 @@ const NavBar = (props) => {
                             auth.userToken !== null &&
                             <Nav.Link className="">Welcome, {auth.userEmail}!</Nav.Link>
                         }
-                        <Nav.Link className="" href="/cart">Cart: {cartLength} </Nav.Link>
+                        <Nav.Link onClick={handleAddToCart} className="" href="/cart">Cart: {cart} </Nav.Link>
                         <NavDropdown align="end" title="" id="basic-nav-dropdown">
                             <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                             <NavDropdown.Item href="/orders">Order History</NavDropdown.Item>
                             <NavDropdown.Item href="/wishlist">My Wishlist</NavDropdown.Item>
-                            {/* <NavDropdown.Divider /> */}
-                            {/* <NavDropdown.Item href="#"> */}
                             <Nav.Link className="mx-2" onClick={logout}>Logout </Nav.Link>
-                            {/* </NavDropdown.Item> */}
-                            </NavDropdown>
+                        </NavDropdown>
                     </Nav>
                     </Navbar.Collapse>
                 </Container>

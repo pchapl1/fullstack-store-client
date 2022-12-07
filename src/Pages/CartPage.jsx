@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../Hooks/auth";
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import CheckoutCart from "../Components/CheckoutButton";
+import Container from "react-bootstrap/esm/Container";
 
 
 const CartPage = (props)=> {
@@ -11,13 +13,7 @@ const CartPage = (props)=> {
 
     const { urlEndpoint, user, removeFromCart, shouldRefetch, setShouldRefetch } = props
 
-    // const [shouldRefetch, setShouldRefetch] = useState(false)
-
     const [cart, setCart] = useState([])
-
-
-
-
 
     const handleRemoveProduct = (e, index)=> {
         removeFromCart(index)
@@ -38,17 +34,16 @@ const CartPage = (props)=> {
             
             fetchUserCart()
         }
-
-
     
       }, [auth, shouldRefetch])
 
 
-
     return (
-
         <div className="cart-page">
-            <h3 className="cart-page">My Cart</h3>
+            <div className="top-section d-flex justify-content-between">
+                <h3 className="cart-title m-2">My Cart </h3>
+                <CheckoutCart user={user} cart={cart} urlEndpoint={urlEndpoint} shouldRefetch={shouldRefetch} setShouldRefetch={setShouldRefetch} />
+            </div>
             <Table striped bordered hover>
                 <tbody>
                 {cart.map((product, index)=>{
@@ -63,13 +58,9 @@ const CartPage = (props)=> {
                         </td>
                         <td>
                             <p>${product.price}</p>
-
                             <Button onClick={e=>handleRemoveProduct(e,index)} value={product.id} >Remove from Cart</Button>
-                            {/* <Button></Button> */}
                         </td>
-
                     </tr>
-                
                 })}
                 </tbody>
             </Table>
