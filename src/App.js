@@ -96,7 +96,6 @@ function App() {
     })
     const removeResponse = await response.json()
 
-    console.log(removeResponse)
     setCartLength(removeResponse.userCart)
 
     setShouldRefetch(false)
