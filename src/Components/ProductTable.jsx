@@ -28,9 +28,9 @@ const ProductTable = (props)=> {
                                     <p className="cart-description">{product.description}</p>
                                     <p>category: {product.category}</p>
                                 </td>
-                                <td>
+                                <td className="button-test">
                                     <p>${product.price}</p>
-                                    <Button onClick={e=>handleRemoveProduct(e,index)} value={product.id} >Remove from Wishlist</Button>
+                                    <Button className="btn-sm remove-button" onClick={e=>handleRemoveProduct(e,index)} value={product.id} >Remove from Wishlist</Button>
                                 </td>
                             </tr>
                         })}

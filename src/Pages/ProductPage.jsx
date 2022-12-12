@@ -36,11 +36,11 @@ const ProductPage = (props) => {
 
     return (
         <div className="product-page">
-            <CategoriesBar />
+            {/* <CategoriesBar /> */}
             <Container>
+            <h2 className="text-center m-3">Products</h2>
             <div className="top-section d-flex justify-content-between">
-                <h2 className="text-center">Products</h2>
-                <SearchBar urlEndpoint={urlEndpoint} />
+                {/* <SearchBar urlEndpoint={urlEndpoint} /> */}
             </div> 
             <div className="product-container">
             {products.map((product, index)=> {

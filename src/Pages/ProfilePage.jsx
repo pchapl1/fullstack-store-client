@@ -88,7 +88,7 @@ const ProfilePage = (props) => {
             <div className="form-container">
                 <Container>
                 <Form>
-                <h1>User Profile</h1>
+                <h1 className="text-center m-4">User Profile</h1>
                 <Form.Group className="mb-3" controlId="">
                     <Form.Label>Email</Form.Label>
                     <Form.Control onLoadedData={handleEmail} onChange={handleEmail} type="text" name="email" placeholder="Enter Email"  defaultValue={email} />
@@ -100,7 +100,7 @@ const ProfilePage = (props) => {
                     <Form.Control onLoadedData={handlePhoneNumber} onChange={handlePhoneNumber} type="number" name="phoneNumber" placeholder="Enter Phone Number" defaultValue={phoneNumber}/>
                 </Form.Group>
                 <Button onClick={updateUser} variant="primary">
-                    Sign Up
+                    Save
                 </Button>
             </Form>
                 </Container>

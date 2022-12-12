@@ -127,7 +127,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path : '/',
-      element : <GlobalLayout auth={auth} urlEndpoint={urlEndpoint} user={user} cartLength={cartLength} />,
+      element : <GlobalLayout auth={auth} urlEndpoint={urlEndpoint} user={user} cartLength={cartLength} shouldRefetch={shouldRefetch} />,
       children : [
         {
           path : '/',
@@ -135,35 +135,28 @@ function App() {
           element : <ProductPage urlEndpoint={urlEndpoint} user={user} addToCart={addToCart} />
         },
         {
-          path : 'login',
-          index : true, 
+          path : '/login',
           element : <LoginPage />
         }, 
 
         {
           path : 'registration',
-
-          index : true,
           element : <RegistrationPage />
         },
         {
           path : 'cart',
-          index : true,
           element : <CartPage auth={auth} urlEndpoint={urlEndpoint} user={user} removeFromCart={removeFromCart} shouldRefetch={shouldRefetch} setShouldRefetch={setShouldRefetch} />
         },
         {
           path : 'profile',
-          index : true,
           element : <ProfilePage auth={auth} urlEndpoint={urlEndpoint} user={user} shouldRefetch={shouldRefetch} setShouldRefetch={setShouldRefetch} />
         },
         {
           path : 'orders',
-          index : true,
           element : <OrderPage orders={orders} auth={auth} urlEndpoint={urlEndpoint} user={user} shouldRefetch={shouldRefetch} setShouldRefetch={setShouldRefetch} />
         },
         {
           path : 'wishlist',
-          index : true,
           element : <WishlistPage removeFromWishlist={removeFromWishlist} auth={auth} urlEndpoint={urlEndpoint} user={user} shouldRefetch={shouldRefetch} setShouldRefetch={setShouldRefetch} />
         },
 

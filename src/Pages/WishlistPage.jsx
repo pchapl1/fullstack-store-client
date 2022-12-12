@@ -29,7 +29,7 @@ const WishlistPage = (props)=> {
 
     return (
         <div className="wishlist-page">
-            <h3>My Wishlist</h3>
+            <h3 className="text-center mb-4">My Wishlist</h3>
             <ProductTable products={wishlist} removeFromWishlist={removeFromWishlist} shouldRetch={shouldRefetch} />            
         </div>
     )

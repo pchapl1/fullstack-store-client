@@ -8,13 +8,14 @@ import { useAuth } from "../Hooks/auth";
 import { useState } from "react";
 
 
+
 const NavBar = (props) => {
 
     const auth = useAuth()
 
     const navigate = useNavigate()
 
-    const { urlEndpoint, user, cartLength } = props
+    const { urlEndpoint, user, cartLength, shouldRefetch } = props
 
     const [ cart, setCart] = useState(cartLength)
 
@@ -25,9 +26,13 @@ const NavBar = (props) => {
 
         const logoutResult = await auth.logout()
 
-        if (logoutResult.success === true) {
-            console.log(logoutResult.success)
-            navigate('/')
+        console.log('logout result: ', logoutResult)
+
+        if (logoutResult === true) {
+            console.log('logging out')
+            setCart(0)
+            navigate('/login')
+
         }
     }
 
@@ -40,15 +45,16 @@ const NavBar = (props) => {
     }, [cart, cartLength])
 
 
+
     return (
         <div className="nav-bar">
 
-            <Navbar bg="light" expand="lg">
+            <Navbar bg="light" expand="md">
                 <Container>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
+                        <Nav.Link href="/">Stuffopolis</Nav.Link>
                         { auth.userToken === null &&
                         <>                        
                         <Nav.Link href="/registration">Register</Nav.Link>
@@ -62,12 +68,16 @@ const NavBar = (props) => {
                             <Nav.Link className="">Welcome, {auth.userEmail}!</Nav.Link>
                         }
                         <Nav.Link onClick={handleAddToCart} className="" href="/cart">Cart: {cart} </Nav.Link>
+                        {
+                        auth.userToken !== null &&
                         <NavDropdown align="end" title="" id="basic-nav-dropdown">
                             <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                             <NavDropdown.Item href="/orders">Order History</NavDropdown.Item>
                             <NavDropdown.Item href="/wishlist">My Wishlist</NavDropdown.Item>
-                            <Nav.Link className="mx-2" onClick={logout}>Logout </Nav.Link>
+                            <Nav.Link className="mx-2" href="/login" onClick={logout}>Logout </Nav.Link>
                         </NavDropdown>
+
+                        }
                     </Nav>
                     </Navbar.Collapse>
                 </Container>

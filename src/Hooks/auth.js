@@ -60,10 +60,11 @@ export const AuthProvider = ({ children }) => {
   // call this function to sign out logged in user
   const logout = async () => {
     setIsAuthLoading(true);
-    await removeLSUserData(); // This has to be awaited for the useEffect to work
+    const logoutResult = await removeLSUserData(); // This has to be awaited for the useEffect to work
     setUserToken(null);
     setUserEmail("");
     setIsAuthLoading(false);
+    return logoutResult
   };
 
 
