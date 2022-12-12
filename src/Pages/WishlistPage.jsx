@@ -16,7 +16,7 @@ const WishlistPage = (props)=> {
         
                 const userWishlist = await response.json()
         
-                console.log(userWishlist)
+                // console.log(userWishlist.wishlist)
             }
 
             fetchWishlist()
