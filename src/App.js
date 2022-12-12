@@ -101,6 +101,28 @@ function App() {
     setShouldRefetch(false)
   }
 
+  const removeFromWishlist = async (productIndex)=>{
+    console.log('removing product from wishlist')
+    setShouldRefetch(true)
+
+    const response = await fetch(`${urlEndpoint}/user/remove-from-wishlist/${user.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+          productIndex
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const removeResponse = await response.json()
+
+    console.log(removeResponse)
+
+
+    setShouldRefetch(false)
+  }
+
+
 
   const router = createBrowserRouter([
     {
@@ -142,7 +164,7 @@ function App() {
         {
           path : 'wishlist',
           index : true,
-          element : <WishlistPage auth={auth} urlEndpoint={urlEndpoint} user={user} shouldRefetch={shouldRefetch} setShouldRefetch={setShouldRefetch} />
+          element : <WishlistPage removeFromWishlist={removeFromWishlist} auth={auth} urlEndpoint={urlEndpoint} user={user} shouldRefetch={shouldRefetch} setShouldRefetch={setShouldRefetch} />
         },
 
       ]
@@ -152,10 +174,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-
           <RouterProvider router={router} />
-
-
       </header>
     </div>
   );
